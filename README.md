@@ -6,6 +6,7 @@ This repository documents my Python learning progress through structured courses
 - **Python for Beginners** (O'Reilly)
 - **Python Functions, Classes, Inheritance** (O'Reilly)
 - **NumPy Essential Training: 1 Foundations of NumPy** (Linkedin Learning)
+- **Object Oriented Programming** (Linkedin Learning)
 
 ## 🎯 Current Focus
 - FastAPI development with database integration (ORM)
@@ -14,5 +15,5 @@ This repository documents my Python learning progress through structured courses
 - [x] Python Basics & Variables
 - [x] Functions & Object-Oriented Programming
 - [x] NumPy for numerical computing
-- [ ] Pandas for data manipulation
+- [x] Object Oriented Programming
 - [ ] FastAPI development with database integration (ORM)
