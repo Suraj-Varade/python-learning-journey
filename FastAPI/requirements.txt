@@ -1,0 +1,17 @@
+fastapi
+uvicorn[standard]
+sqlalchemy
+databases[aiosqlite]
+python-dotenv
+pydantic-settings
+rich
+asgi-correlation-id
+python-json-logger
+python-jose # to generate JWT
+python-multipart # use for receiving form data using FastAPI
+httpx==0.27.2
+aiosmtplib
+
+# to hash user password, so that it can be stored in db
+passlib[bcrypt]==1.7.4
+bcrypt==3.2.2

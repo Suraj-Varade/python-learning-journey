@@ -1,0 +1,6 @@
+ruff
+pytest
+httpx==0.27.2
+black 
+isort
+pytest-mock # mocking
