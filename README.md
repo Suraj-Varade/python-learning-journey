@@ -7,6 +7,7 @@ This repository documents my Python learning progress through structured courses
 - **Python Functions, Classes, Inheritance** (O'Reilly)
 - **NumPy Essential Training: 1 Foundations of NumPy** (Linkedin Learning)
 - **Object Oriented Programming** (Linkedin Learning)
+- **Mastering REST APIs with FastAPI** (O'Reilly)
 
 ## 🎯 Current Focus
 - Deployment
