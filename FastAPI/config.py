@@ -3,7 +3,7 @@ from functools import lru_cache
 from typing import Optional
 
 from dotenv import load_dotenv
-from pydantic_settings import BaseSettings
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 # force load .env from project root (even when running from subfolder)
 # dotenv_path = os.path.join(os.path.dirname(__file__), ".env")
@@ -14,9 +14,13 @@ load_dotenv()
 class BaseConfig(BaseSettings):
     ENV_STATE: Optional[str] = os.getenv("ENV_STATE", "dev")
 
+    model_config = SettingsConfigDict(env_file=".env", extra="ignore")
+
+    """
     class Config:
         env_file: str = ".env"
         extra = "ignore"
+    """
 
 
 class GlobalConfig(BaseConfig):
@@ -30,22 +34,42 @@ class DevConfig(GlobalConfig):
     DATABASE_URL: str  # = os.getenv("DEV_DATABASE_URL", "sqlite:///data.db")
     MAIL_APP_SENDER: Optional[str]
     MAIL_APP_PASSWORD: Optional[str]
+    AWS_REGION: Optional[str]
+    S3_BUCKET_NAME: Optional[str]
+    AWS_ACCESS_KEY_ID: Optional[str]
+    AWS_SECRET_ACCESS_KEY: Optional[str]
 
+    model_config = SettingsConfigDict(env_prefix="DEV_", extra="ignore")
+
+    """
     class Config:
         env_prefix: str = "DEV_"
+    """
 
 
 class TestConfig(GlobalConfig):
     DATABASE_URL: str = "sqlite:///test.db"
     DB_FORCE_ROLL_BACK: bool = True  ## only for test environment.
+    AWS_REGION: str = "fake-region"
+    S3_BUCKET_NAME: str = "fake_bucket_name"
+    AWS_ACCESS_KEY_ID: str = "fake_access_key"
+    AWS_SECRET_ACCESS_KEY: str = "fake_secret_key"
 
+    model_config = SettingsConfigDict(env_prefix="TEST_", extra="ignore")
+
+    """
     class Config:
         env_prefix: str = "TEST_"
+    """
 
 
 class ProdConfig(GlobalConfig):
+    model_config = SettingsConfigDict(env_prefix="PROD_", extra="ignore")
+
+    """
     class Config:
         env_prefix: str = "PROD_"
+    """
 
 
 ## caching - lru_cache - it will cache the keys and values based on env_state.

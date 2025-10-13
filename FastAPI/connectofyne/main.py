@@ -7,6 +7,7 @@ from fastapi.exception_handlers import http_exception_handler
 
 from connectofyne.database import database
 from connectofyne.logging_conf import configure_logging
+from connectofyne.routers.file import router as file_router
 from connectofyne.routers.post import router as post_router
 from connectofyne.routers.user import router as user_router
 from fastapi import FastAPI, HTTPException
@@ -29,6 +30,7 @@ app.add_middleware(CorrelationIdMiddleware)  ## middleware
 
 app.include_router(post_router, prefix="/api")
 app.include_router(user_router, prefix="/api")
+app.include_router(file_router, prefix="/api")
 
 
 @app.exception_handler(HTTPException)

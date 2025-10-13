@@ -79,6 +79,7 @@ async def login(form_data: Annotated[OAuth2PasswordRequestForm, Depends()]):
     return {"access_token": access_token, "token_type": "Bearer"}
 
 
+# confirm
 @router.get("/confirm/{token}")
 async def confirm_email(token: str):
     email = get_subject_for_token_type(token, "confirmation")

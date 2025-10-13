@@ -66,7 +66,7 @@ async def create_post(
     )  # this will grab the bearer token from client request    
     """
 
-    data = {**post.dict(), "user_id": current_user.user_id}
+    data = {**post.model_dump(), "user_id": current_user.user_id}
     ## dictionary keys should matches column names.
     query = post_table.insert().values(data)
     last_record_id = await database.execute(query)
@@ -155,7 +155,7 @@ async def create_comment(
         # logger.error(f"post with post_id {comment.post_id} not found")
         raise HTTPException(status_code=404, detail="Post not found")
 
-    data = {**comment.dict(), "user_id": current_user.user_id}
+    data = {**comment.model_dump(), "user_id": current_user.user_id}
     query = comment_table.insert().values(data)
     last_record_id = await database.execute(query)
     return {**data, "comment_id": last_record_id}
@@ -229,7 +229,7 @@ async def like_post(
     if not post:
         raise HTTPException(status_code=404, detail="post not found")
 
-    data = {**like.dict(), "user_id": current_user.user_id}
+    data = {**like.model_dump(), "user_id": current_user.user_id}
     query = like_table.insert().values(data)
 
     logger.debug(query)

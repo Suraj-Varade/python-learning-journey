@@ -75,6 +75,7 @@ async def test_create_post(
             "post_id": 1,
             "content": content,
             "user_id": confirmed_user["user_id"],
+            "image_url": None,
         }.items()
         <= response.json().items()
     )  # check if left side block present in the right side json items

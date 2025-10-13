@@ -1,15 +1,23 @@
 import logging
 import os
 from typing import AsyncGenerator, Generator
-from unittest.mock import AsyncMock
+from unittest.mock import AsyncMock, MagicMock
 
 import pytest
 from fastapi.testclient import TestClient
 from httpx import AsyncClient
 
+from connectofyne.routers import file
+
 os.environ["ENV_STATE"] = "test"
 import connectofyne.tasks as tasks
-from connectofyne.database import database, user_table
+from connectofyne.database import (
+    comment_table,
+    database,
+    like_table,
+    post_table,
+    user_table,
+)
 from connectofyne.main import app
 
 logger = logging.getLogger(__name__)
@@ -26,9 +34,16 @@ def client() -> Generator:
     yield TestClient(app)
 
 
+# since we want fresh data every-time for every test.
 @pytest.fixture(autouse=True)
 async def db() -> AsyncGenerator:
     await database.connect()
+
+    await database.execute(like_table.delete())
+    await database.execute(comment_table.delete())
+    await database.execute(post_table.delete())
+    await database.execute(user_table.delete())
+
     yield
     await (
         database.disconnect()
@@ -99,3 +114,18 @@ async def mock_send_mail_async(monkeypatch):
     )
 
     return mock_send_user_registration_email
+
+
+@pytest.fixture(autouse=True)
+def mock_s3_service(monkeypatch):
+    mock_service = MagicMock()
+    mock_service.generate_upload_url.return_value = {
+        "upload_url": "https://fake-upload-url.com",
+        "file_path": "test",
+    }
+    mock_service.generate_download_url.return_value = {
+        "download_url": "https://fake-upload-url.com"
+    }
+
+    monkeypatch.setattr(file, "s3_service", mock_service)
+    return mock_service

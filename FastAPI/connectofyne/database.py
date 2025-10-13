@@ -12,6 +12,7 @@ user_table = sqlalchemy.Table(
     sqlalchemy.Column("email", sqlalchemy.String, unique=True),
     sqlalchemy.Column("password", sqlalchemy.String),
     sqlalchemy.Column("confirmed", sqlalchemy.Boolean, default=False),
+    sqlalchemy.Column("profile_picture", sqlalchemy.String),
 )
 
 
@@ -23,6 +24,7 @@ post_table = sqlalchemy.Table(
     sqlalchemy.Column(
         "user_id", sqlalchemy.ForeignKey("users.user_id"), nullable=False
     ),
+    sqlalchemy.Column("image_url", sqlalchemy.String),
 )
 
 like_table = sqlalchemy.Table(
