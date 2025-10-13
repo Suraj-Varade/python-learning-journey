@@ -9,11 +9,11 @@ This repository documents my Python learning progress through structured courses
 - **Object Oriented Programming** (Linkedin Learning)
 
 ## 🎯 Current Focus
-- FastAPI development with database integration (ORM)
+- Deployment
 
 ## 📋 Learning Roadmap
 - [x] Python Basics & Variables
 - [x] Functions & Object-Oriented Programming
 - [x] NumPy for numerical computing
 - [x] Object Oriented Programming
-- [ ] FastAPI development with database integration (ORM)
+- [x] FastAPI development with database.
